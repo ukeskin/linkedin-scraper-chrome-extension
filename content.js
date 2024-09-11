@@ -4,8 +4,14 @@ let currentPage = 1;
 let totalPages = 22;
 let index = 0;
 
-function scrapeJob() {
-  if (index < jobLinks.length && jobDescriptions.length < 10) {
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.action === "scrape") {
+    scrapeJobs(request.limit);
+  }
+});
+
+function scrapeJobs(limit) {
+  if (index < jobLinks.length && jobDescriptions.length < limit) {
     const jobCard = jobLinks[index].closest(".job-card-container");
     if (jobCard) {
       const jobTitle =
@@ -29,13 +35,13 @@ function scrapeJob() {
       });
 
       index++;
-      scrapeJob();
+      scrapeJobs(limit);
     } else {
       console.error("Job card not found");
       index++;
-      scrapeJob();
+      scrapeJobs(limit);
     }
-  } else if (currentPage < totalPages && jobDescriptions.length < 10) {
+  } else if (currentPage < totalPages && jobDescriptions.length < limit) {
     currentPage++;
     goToNextPage();
   } else {
@@ -53,7 +59,7 @@ function goToNextPage() {
     setTimeout(() => {
       jobLinks = document.querySelectorAll(".job-card-container__link");
       index = 0;
-      scrapeJob();
+      scrapeJobs(10);
     }, 2000);
   } else {
     console.log("Next page button not found. Collected data:");
@@ -89,4 +95,4 @@ function downloadCSV() {
   document.body.removeChild(a);
 }
 
-scrapeJob();
+scrapeJobs(10);
