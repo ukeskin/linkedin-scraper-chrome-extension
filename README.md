@@ -24,15 +24,13 @@ This Chrome extension allows you to scrape job listings from LinkedIn job search
 
 2. Click the extension icon in the top right corner of Chrome.
 
-3. In the popup window, enter the desired number of job listings to scrape (1-100).
+3. In the popup window, click the "Start Scraping" button.
 
-4. Click the "Start Scraping" button.
-
-5. The extension will start scraping job listings from the page and will automatically download a CSV file when finished.
+4. The extension will start scraping job listings from the page and will automatically download a CSV file when finished.
 
 ## Notes
 
-- The extension allows you to scrape between 1 and 100 job listings at a time.
+- The extension is set to scrape a maximum of 10 job listings at a time.
 - Do not close or refresh the page during the scraping process.
 - The extension may require updates if LinkedIn's site structure changes.
 
